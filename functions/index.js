@@ -5,6 +5,7 @@ const request = require('request');
 const {Storage} = require('@google-cloud/storage');
 const cors = require('cors')({origin: true});
 const path = require('path');
+const urlMetadata = require('url-metadata');
 
 const storage = new Storage({
   projectId: 'sifty-organization',
@@ -57,6 +58,15 @@ exports.grabScreen = functions.https.onRequest((req, res) => {
     res.status(401).send("Missing parameters");
   }
   });
+});
+
+exports.getUrlMetadata = functions.https.onRequest((req, res) => {
+  urlMetadata(req.query.url).then(metadata => {
+    return res.status(200).send(metadata);
+  }).catch(err => {
+    console.error(err)
+    return res.status(500).send(err);
+  })
 });
 
 exports.screencapToData = functions.storage.bucket('sifty-organization').object().onFinalize(async (object) => {

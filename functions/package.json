@@ -19,7 +19,8 @@
     "promisepipe": "^3.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "screenshotlayer-node": "0.0.2"
+    "screenshotlayer-node": "0.0.2",
+    "url-metadata": "^2.2.1"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
