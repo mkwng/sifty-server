@@ -61,12 +61,15 @@ exports.grabScreen = functions.https.onRequest((req, res) => {
 });
 
 exports.getUrlMetadata = functions.https.onRequest((req, res) => {
-  urlMetadata(req.query.url).then(metadata => {
-    return res.status(200).send(metadata);
-  }).catch(err => {
-    console.error(err)
-    return res.status(500).send(err);
-  })
+  cors(req, res, () => {
+    console.log(req.query.url);
+    urlMetadata(req.query.url).then(metadata => {
+      return res.status(200).send(metadata);
+    }).catch(err => {
+      console.error(err)
+      return res.status(500).send(err);
+    })
+  });
 });
 
 exports.screencapToData = functions.storage.bucket('sifty-organization').object().onFinalize(async (object) => {
@@ -83,7 +86,7 @@ exports.screencapToData = functions.storage.bucket('sifty-organization').object(
     action: 'read',
     expires: '03-09-2491'
   }).then(signedUrl => {
-    return admin.database().ref(refPath).update({ thumbnailUrl: signedUrl[0] });
+    return admin.database().ref(refPath + "metadata").update({ image: signedUrl[0] });
   }).then(() => {
     return console.log('Url successfully updated at: ' + refPath);
   }).catch(err => {

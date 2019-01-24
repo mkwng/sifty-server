@@ -10,6 +10,8 @@
       "source": "/grabScreen", "function": "grabScreen"
     },{
       "source": "/helloWorld", "function": "helloWorld"
+    },{
+      "source": "/getUrlMetadata", "function": "getUrlMetadata"
     } ],
     "headers": [ {
       "source" : "**",
