@@ -86,7 +86,7 @@ exports.screencapToData = functions.storage.bucket('sifty-organization').object(
     action: 'read',
     expires: '03-09-2491'
   }).then(signedUrl => {
-    return admin.database().ref(refPath + "metadata").update({ image: signedUrl[0] });
+    return admin.database().ref(refPath + "/metadata").update({ image: signedUrl[0] });
   }).then(() => {
     return console.log('Url successfully updated at: ' + refPath);
   }).catch(err => {
