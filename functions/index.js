@@ -80,7 +80,7 @@ exports.screencapToData = functions.storage.bucket('sifty-organization').object(
 
   console.log("Image upload detected. Grabbing url...")
   const filePath = path.parse(object.name);
-  const refPath = 'documents/' + filePath.dir.split(path.sep).pop() + '/' + filePath.name;
+  const refPath = 'documents/' + filePath.name;
 
   return bucket.file(object.name).getSignedUrl({
     action: 'read',
